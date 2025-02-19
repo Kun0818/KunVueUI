@@ -1,0 +1,15 @@
+@font-face {
+  font-family: 'custom-font';
+  src: local('Microsoft JhengHei');
+  unicode-range: U+4E00-9FFF;
+}
+@font-face {
+  font-family: 'custom-font';
+  src: local('Segoe UI');
+  unicode-range: U+00-024F;
+}
+
+* {
+  font-family: custom-font;
+  box-sizing: border-box;
+}

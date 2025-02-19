@@ -1,0 +1,219 @@
+// Input.scss
+.floating-input {
+  --padding: 8px;
+  --border-color: #c4c4c4;
+  --border-hover-color: #666666;
+  --border-focus-color: #1976d2;
+  --border-error-color: #d32f2f;
+  --text-color: #252525;
+  --label-color: #666666;
+  --disabled-color: #00000061;
+  --background-color: #ffffff;
+
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  width: 100%;
+
+  &__wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+  }
+
+  &__field {
+    width: 100%;
+    height: 100%;
+    padding: 0 14px;
+    border: none;
+    background: none;
+    outline: none;
+    font-size: 16px;
+    color: var(--text-color);
+    padding-top: var(--padding);
+    padding-bottom: var(--padding);
+
+    &::placeholder {
+      color: transparent;
+      transition: color 0.2s;
+    }
+  }
+
+  &__label {
+    contain: layout paint;
+    position: absolute;
+    left: 16px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: var(--label-color);
+    pointer-events: none;
+    transform-origin: left center;
+    transition: 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+    transition-property: opacity, transform;
+
+    &--floating {
+      display: block;
+      position: static;
+      transform: translateY(-50%);
+      font-size: .75em;
+      color: var(--label-color);
+      margin: 0 4px;
+      visibility: hidden;
+    }
+  }
+
+  &__outline {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    display: flex;
+    pointer-events: none;
+    border-radius: inherit;
+    width: 100%;
+
+    &-start {
+      border: 0px solid var(--border-color);
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-inline-start-width: 1px;
+      border-start-start-radius: inherit;
+      border-end-start-radius: inherit;
+      flex: 0 0 12px;
+    }
+
+    &-notch {
+      flex: none;
+      position: relative;
+      max-width: calc(100% - 12px);
+      border: 0px solid var(--border-color);
+      border-bottom-width: 1px;
+
+      &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border: 0px solid var(--border-color);
+        border-top-width: 1px;
+      }
+    }
+
+    &-end {
+      border: 0px solid var(--border-color);
+      border-top-width: 1px;
+      border-bottom-width: 1px;
+      border-inline-end-width: 1px;
+      border-start-end-radius: inherit;
+      border-end-end-radius: inherit;
+      flex: 1;
+    }
+  }
+
+  // Focus & Value States
+  // &.is-focused,
+  // &.has-value {
+  //   .floating-input__label {
+  //     transform: translateY(-28px);
+  //     padding: 0 4px;
+  //     background-color: transparent;
+  //     font-size: 12px;
+  //     z-index: 1;
+  //     color: var(--border-focus-color);
+  //   }
+
+  //   .floating-input__field::placeholder {
+  //     color: var(--label-color);
+  //   }
+  // }
+
+  // // Focus State
+  &.is-focused,
+  &.has-value {
+    .floating-input__label {
+      visibility: hidden;
+      transform: translateY(-28px);
+      padding: 0 4px;
+      background-color: transparent;
+      font-size: 12px;
+      z-index: 1;
+      color: var(--border-focus-color);
+      visibility: hidden;
+      &--floating {
+        visibility: unset;
+        color: var(--border-focus-color);
+      }
+    }
+
+    .floating-input__outline-start {
+      border: 0px solid var(--border-focus-color);
+      border-top-width: 2px;
+      border-bottom-width: 2px;
+      border-inline-start-width: 2px;
+    }
+
+    .floating-input__outline-notch {
+      border: 0px solid var(--border-focus-color);
+      border-bottom-width: 2px;
+      &::before {
+        visibility: hidden;
+      }
+    }
+    .floating-input__outline-end {
+      border: 0px solid var(--border-focus-color);
+      border-top-width: 2px;
+      border-bottom-width: 2px;
+      border-inline-end-width: 2px;
+    }
+  }
+
+  // // Error State
+  &.has-error {
+    .floating-input__outline-start,
+    .floating-input__outline-end,
+    .floating-input__outline-notch {
+      border-color: var(--border-error-color);
+    }
+
+    .floating-input__label {
+      color: var(--border-error-color);
+    }
+  }
+
+  // // Disabled State
+  // &.is-disabled {
+  //   .floating-input__field {
+  //     color: var(--disabled-color);
+  //     cursor: not-allowed;
+  //   }
+
+  //   .floating-input__label {
+  //     color: var(--disabled-color);
+  //   }
+
+  //   .floating-input__outline {
+  //     &-start,
+  //     &-end,
+  //     &-notch {
+  //       border-color: rgba(0, 0, 0, 0.26);
+  //       border-style: dotted;
+  //     }
+  //   }
+  // }
+
+  // // Hover State
+  // &:not(.is-disabled):not(.is-focused):not(.has-error):hover {
+  //   .floating-input__outline {
+  //     &-start,
+  //     &-end,
+  //     &-notch {
+  //       border-color: var(--border-hover-color);
+  //     }
+  //   }
+  // }
+}

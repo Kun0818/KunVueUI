@@ -1,0 +1,5 @@
+node_modules
+src
+.vite
+.vscode
+dist/*.map

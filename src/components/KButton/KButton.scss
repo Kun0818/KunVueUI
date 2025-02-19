@@ -1,0 +1,166 @@
+// Import the `map` module
+@use 'sass:map';
+
+// _variables.scss
+$button-colors: (
+  primary: (
+    base: #006ce1,
+    hover: #0051a8,
+    active: #003a7a,
+  ),
+  secondary: (
+    base: #003a5a,
+    hover: #002752,
+    active: #001936,
+  ),
+  error: (
+    base: #e75b4b,
+    hover: #b42d18,
+    active: #5a140c,
+  ),
+);
+
+$button-sizes: (
+  small: (
+    padding: 2px 8px,
+    font-size: 12px,
+  ),
+  medium: (
+    padding: 4px 12px,
+    font-size: 14px,
+  ),
+  large: (
+    padding: 10px 22px,
+    font-size: 16px,
+  ),
+);
+
+// Common variables
+$border-radius: 8px;
+$border-width: 2px;
+$transition-duration: 0.3s;
+$disabled-bg: #b3b3b3;
+$spinner-size: 16px;
+$icon-spacing: 8px;
+
+// KButton.scss
+.k-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
+  line-height: 1;
+  font-weight: 500;
+  border-radius: $border-radius;
+  cursor: pointer;
+  transition:
+    background-color $transition-duration,
+    border-color $transition-duration,
+    color $transition-duration,
+    transform 0.2s;
+
+  // Style variants
+  &--fill {
+    border: $border-width solid transparent;
+  }
+
+  &--outlined {
+    border: $border-width solid currentColor;
+    background-color: transparent;
+  }
+
+  // Size variants
+  @each $size, $values in $button-sizes {
+    &--#{$size} {
+      padding: map.get($values, 'padding');
+      font-size: map.get($values, 'font-size');
+    }
+  }
+
+  // Color variants
+  @each $variant, $colors in $button-colors {
+    &--#{$variant} {
+      &.k-button--fill {
+        background-color: map.get($colors, 'base');
+        color: #fff;
+
+        &:hover:not(:disabled) {
+          background-color: map.get($colors, 'hover');
+        }
+
+        &:active:not(:disabled) {
+          background-color: map.get($colors, 'active');
+        }
+      }
+
+      &.k-button--outlined {
+        color: map.get($colors, 'base');
+
+        &:hover:not(:disabled) {
+          background-color: map.get($colors, 'base');
+          border-color: map.get($colors, 'base');
+          color: #fff;
+        }
+
+        &:active:not(:disabled) {
+          background-color: map.get($colors, 'active');
+          color: #fff;
+        }
+      }
+    }
+  }
+
+  &--block {
+    width: 100%;
+  }
+
+  &:disabled {
+    background-color: $disabled-bg;
+    cursor: not-allowed;
+    opacity: 0.6;
+
+    &:hover {
+      background-color: $disabled-bg;
+    }
+  }
+
+  &__spinner {
+    border: $border-width solid rgba(255, 255, 255, 0.3);
+    border-top: $border-width solid #fff;
+    border-radius: 50%;
+    width: $spinner-size;
+    height: $spinner-size;
+    animation: spin 1s linear infinite;
+    margin-right: $icon-spacing;
+  }
+
+  &__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    vertical-align: middle;
+
+    &--left {
+      margin-right: $icon-spacing;
+    }
+
+    &--right {
+      margin-left: $icon-spacing;
+    }
+  }
+
+  &__label {
+    display: inline-flex;
+    align-items: center;
+    vertical-align: middle;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
