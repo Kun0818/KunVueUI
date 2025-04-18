@@ -1,5 +1,5 @@
 // src/components/input/Input.tsx
-import { defineComponent, computed, ref, } from 'vue'
+import { defineComponent, computed, ref } from 'vue'
 import './KInput.scss'
 
 export interface InputProps {
@@ -67,12 +67,10 @@ export default defineComponent({
       emit('blur', event)
     }
 
-
-
     return () => (
       <div class={classes.value}>
         <div class="floating-input__wrapper">
-        <label class="floating-input__label">{props.label}</label>
+          <label class="floating-input__label">{props.label}</label>
           <input
             ref={inputRef}
             class="floating-input__field"

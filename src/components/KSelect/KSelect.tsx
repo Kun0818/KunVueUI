@@ -52,8 +52,8 @@ export default defineComponent({
     })
 
     const classes = computed(() => ({
-      select: true,
-      'is-open': isOpen.value,
+      'select': true,
+      'is-focused': isOpen.value,
       'has-value': !!props.modelValue,
       'is-disabled': props.disabled,
       'has-error': props.error,
@@ -108,6 +108,7 @@ export default defineComponent({
     return () => (
       <div class={classes.value}>
         <div class="select__wrapper" onClick={toggleDropdown}>
+          <label class="select__label">{props.label}</label>
           <input
             ref={selectRef}
             class="select__field"
@@ -121,9 +122,15 @@ export default defineComponent({
           <div style="margin-right:16px;width:20px;height:20px">
             <ChevronDown class="select__arrow" size={20} />
           </div>
-          <label class="select__label">{props.label}</label>
-          <div class="select__outline">
+          {/* <div class="select__outline">
             <div class="select__outline-notch"></div>
+          </div> */}
+          <div class="select__outline">
+            <div class="select__outline-start"></div>
+            <div class="select__outline-notch">
+              <label class="select__label--floating">{props.label}</label>
+            </div>
+            <div class="select__outline-end"></div>
           </div>
         </div>
 
